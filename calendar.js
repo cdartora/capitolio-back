@@ -17,8 +17,7 @@ const createEvent = async (event) => {
 
   try {
     const res = await calendar.events.insert({
-      calendarId:
-        "8c55160443cc8f50c68ce39c0433ec95ca687df0ac0278dcd003f1f7b6032bac@group.calendar.google.com",
+      calendarId: process.env.CALENDAR_ID,
       auth: client,
       requestBody: event,
     });

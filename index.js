@@ -2,7 +2,18 @@ import puppeteer from "puppeteer";
 
 import { scrapeMovies, scrapeDate } from "./scraping";
 import { createEvent, createEventData } from "./calendar";
-import logger from "./utils/logger";
+import { logger } from "./utils";
+
+import { config } from "dotenv";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const dotenv = require("dotenv");
+const result = dotenv.config();
+
+if (result.error) {
+  throw result.error;
+}
 
 console.log("Running the script on a 7-day schedule on Fridays.");
 
