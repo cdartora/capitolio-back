@@ -39,4 +39,4 @@ const scrapeDate = async (page) =>
     return dateElement ? dateElement.textContent.trim() : null;
   });
 
-module.exports = { scrapeMovies, scrapeDate };
+export default { scrapeMovies, scrapeDate };

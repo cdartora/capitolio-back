@@ -1,17 +1,8 @@
-const puppeteer = require("puppeteer");
-const { createEvent, createEventData } = require("./calendar");
-const { scrapeMovies, scrapeDate } = require("./scraping");
+import puppeteer from "puppeteer";
 
-const winston = require("winston");
-
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.json(),
-  transports: [
-    new winston.transports.Console(),
-    new winston.transports.File({ filename: "combined.log" }),
-  ],
-});
+import { scrapeMovies, scrapeDate } from "./scraping";
+import { createEvent, createEventData } from "./calendar";
+import logger from "./utils/logger";
 
 console.log("Running the script on a 7-day schedule on Fridays.");
 

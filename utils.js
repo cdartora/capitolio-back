@@ -1,3 +1,5 @@
+import winston from "winston";
+
 const parseDateTime = (dateString, timingsString, isStartTime) => {
   // console.log("dateString value inside parseDateTime: ", dateString);
   const dateParts = dateString.split("/");
@@ -21,4 +23,13 @@ const parseDateTime = (dateString, timingsString, isStartTime) => {
   return parsedDate;
 };
 
-module.exports = { parseDateTime };
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: "combined.log" }),
+  ],
+});
+
+export default { parseDateTime, logger };

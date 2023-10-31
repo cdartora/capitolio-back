@@ -1,7 +1,7 @@
-const { google } = require("googleapis");
-const { JWT } = require("google-auth-library");
-const key = require("./credentials.json");
-const { parseDateTime } = require("./utils.js");
+import { google } from "googleapis";
+import { JWT } from "google-auth-library";
+import key from "./credentials.json";
+import { parseDateTime } from "./utils.js";
 
 const createEvent = async (event) => {
   const client = new JWT({
