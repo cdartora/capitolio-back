@@ -32,4 +32,4 @@ const logger = winston.createLogger({
   ],
 });
 
-export default { parseDateTime, logger };
+export { parseDateTime, logger };

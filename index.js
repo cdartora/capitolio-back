@@ -1,8 +1,8 @@
 import puppeteer from "puppeteer";
 
-import { scrapeMovies, scrapeDate } from "./scraping";
-import { createEvent, createEventData } from "./calendar";
-import { logger } from "./utils";
+import { scrapeMovies, scrapeDate } from "./scraping.js";
+import { createEvent, createEventData } from "./calendar.js";
+import { logger } from "./utils.js";
 
 import { config } from "dotenv";
 import { createRequire } from "module";
@@ -17,14 +17,23 @@ if (result.error) {
 
 console.log("Running the script on a 7-day schedule on Fridays.");
 
+const launchPuppeteer = async () => {
+  return puppeteer
+    .launch({ headless: false })
+    .then((browser) => {
+      return browser.pages();
+    })
+    .then((pages) => {
+      const [page] = pages;
+      return page.setViewport({ width: 1200, height: 720 });
+    });
+};
+
 const main = async () => {
-  try {
-    const browser = await puppeteer.launch({ headless: false });
-    const [page] = await browser.pages();
-    await page.setViewport({ width: 1200, height: 720 });
-  } catch (err) {
-    logger.error("Something setting up puppetteer failed:", err);
-  }
+  let movieDate;
+  const browser = await puppeteer.launch({ headless: false });
+  const [page] = await browser.pages();
+  await page.setViewport({ width: 1200, height: 720 });
 
   try {
     const url = "http://www.capitolio.org.br/programacao/";
@@ -44,7 +53,7 @@ const main = async () => {
       logger.error("movie scraping failed:", err)
     );
 
-    const movieDate = await scrapeDate(page).catch((err) =>
+    movieDate = await scrapeDate(page).catch((err) =>
       logger.error("movie scraping failed:", err)
     );
 
@@ -56,7 +65,7 @@ const main = async () => {
     }
   }
 
-  logger.log(`Agenda for day ${movieDate} complete!`);
+  logger.info(`Agenda for day ${movieDate} complete!`);
   browser.close();
 };
 

@@ -1,6 +1,6 @@
 import { google } from "googleapis";
 import { JWT } from "google-auth-library";
-import key from "./credentials.json";
+import key from "./credentials.json" assert { type: "json" };
 import { parseDateTime } from "./utils.js";
 
 const createEvent = async (event) => {
@@ -41,4 +41,4 @@ const createEventData = ({ title, movieDate, timings, description }) => ({
   location: "Cinemateca Capitólio",
 });
 
-module.exports = { createEvent, createEventData };
+export { createEvent, createEventData };
